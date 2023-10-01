@@ -1,0 +1,19 @@
+const fs = require('fs/promises');
+
+(async function(){
+    const arquivoJson = await fs.readFile('teste.json');
+
+    const pessoas = JSON.parse(arquivoJson)
+    
+    pessoas.push({
+        nome: 'Guido',
+        idade: 31
+    })
+
+    const arrayJson = JSON.stringify(pessoas);
+
+    console.log(arrayJson);
+    console.log(pessoas);
+    console.log(pessoas[0].nome);
+    console.log(pessoas[0].idade);
+})();
