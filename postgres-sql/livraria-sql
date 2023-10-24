@@ -1,0 +1,86 @@
+create table editoras (
+  id SERIAL PRIMARY KEY,
+  nome text not null,
+  cnpj text unique,
+  data_cadastro timestamp default now()
+  );
+  
+  insert into editoras (nome, cnpj) values ('Cubos Academy', '001144224141');
+  
+  create table livros (
+    isbn INTEGER PRIMARY KEY,
+    editora_id integer references editoras(id),
+    titulo text not null,
+    data_publicao date not null
+ );
+  
+  alter table livros rename data_publicao to data_publicacao;
+  
+  insert into livros(isbn, editora_id, titulo, data_publicacao) values
+  (12345, 1, 'Backend with nodeJS', '2021-12-01');
+  
+  insert into livros (isbn, editora_id, titulo, data_publicacao) values
+  (123456, 1, 'Node.js Avançado', '2021-12-01');
+  
+  create table enderecos (
+    id SERIAL PRIMARY KEY,
+    editora_id integer references editoras(id),
+    cep text not null,
+    rua text,
+    bairro text,
+    cidade text,
+    estado char(2),
+    pais text
+  );
+  
+  insert into enderecos (editora_id, cep) values (1, '54727-221');
+  
+  create table categorias (
+    id SERIAL PRIMARY KEY,
+    nome text not null
+  );
+  
+  insert into categorias (nome) values ('Tecnologia'), ('Programação'), ('Node.JS');
+  
+  create table livro_categoria (
+    livro_isbn integer references livros(isbn),
+    categoria_id integer references categorias(id)
+  );
+  
+  insert into livro_categoria (livro_isbn, categoria_id) values
+  (12345, 1),
+  (123456, 2),
+  (12345, 3),
+  (123456, 1);
+  
+  
+  create table comentarios(
+    id SERIAL PRIMARY KEY,
+    descricao text not null,
+    comentario_id integer references comentarios(id),
+    livro_isbn integer references livros(isbn)
+  );
+  
+  insert into comentarios (descricao, livro_isbn) values ('Livro muit bom', 12345);
+  insert into comentarios (descricao, comentario_id) values ('Obriado pelo elogio', 1);
+  
+  alter table categorias add column descricao text;
+  alter table categorias drop column descricao;
+  alter table categorias alter column descricao type varchar(100);
+  
+  create table telefones (
+    id SERIAL PRIMARY KEY,
+    editora_id integer,
+    numero text
+  );
+  
+  alter table telefones add constraint fk_telefones_editoras foreign key (editora_id) 
+  references editoras(id);
+
+  select * from editoras;
+  select * from livros;
+  select * from enderecos;
+  select * from categorias;
+  select * from livro_categoria;
+  select * from comentarios;
+  select * from telefones;
