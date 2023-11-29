@@ -4,7 +4,8 @@
 	"description": "",
 	"main": "index.js",
 	"scripts": {
-		"dev": "nodemon ./src/index.js"
+		"dev": "nodemon ./src/index.js",
+		"test": "jest --passWithNoTests"
 	},
 	"keywords": [],
 	"author": "",
@@ -16,6 +17,7 @@
 		"pg": "^8.7.3"
 	},
 	"devDependencies": {
+		"jest": "^29.7.0",
 		"nodemon": "^2.0.18"
 	}
 }
